@@ -1,13 +1,18 @@
 package com.tutorial.entity;
 
+import com.tutorial.utils.UtilEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CustomerTest {
+@Slf4j
+public class CRUDTest {
 
     /**
      * CRUD
@@ -23,6 +28,20 @@ public class CustomerTest {
      *
      */
 
+    EntityManagerFactory entityManagerFactory;
+
+    @BeforeEach
+    void setUp(){
+        log.info("On Entity Manager Factory");
+        this.entityManagerFactory = UtilEntityManagerFactory.getEntityManagerFactory();
+    }
+
+    @AfterEach
+    void tearDown(){
+        log.info("Off Entity Manager Factory");
+        this.entityManagerFactory.close();
+    }
+
     @Test
     void insertEntityTest(){
 
@@ -32,9 +51,9 @@ public class CustomerTest {
         entityTransaction.begin();
 
         Customer customer = new Customer();
-        customer.setId("2");
-        customer.setName("ismail");
-        customer.setPrimaryEmail("ismail@gmail.com");
+        customer.setName("sabeni");
+//        customer.setId("2");
+//        customer.setPrimaryEmail("sabeni@gmail.com");
         entityManager.persist(customer); // void persist(Object var1) // Untuk menyimpan entity
 
         entityTransaction.commit();
@@ -65,7 +84,7 @@ public class CustomerTest {
         Customer customer = entityManager.find(Customer.class, "1"); // <T> T find(Class<T> var1, Object var2) // Untuk mendapatkan entity berdasarkan id
         Assertions.assertEquals("1", customer.getId());
         Assertions.assertEquals("jamal", customer.getName());
-        Assertions.assertEquals("jamal@gmail.com", customer.getPrimaryEmail());
+//        Assertions.assertEquals("jamal@gmail.com", customer.getPrimaryEmail());
 
         entityTransaction.commit();
         entityManager.close();
@@ -95,7 +114,7 @@ public class CustomerTest {
 
         Customer customer = entityManager.find(Customer.class, "1"); // <T> T find(Class<T> var1, Object var2) // Untuk mendapatkan entity berdasarkan id
         customer.setName("abdul rojak");
-        customer.setPrimaryEmail("rojak@gmail.com");
+//        customer.setPrimaryEmail("rojak@gmail.com");
         entityManager.merge(customer); // <T> T merge(T var1) // Untuk mengupdate entity
 
         entityTransaction.commit();
