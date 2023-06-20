@@ -16,8 +16,27 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Entity Classes -->
-        <class>com.tutorial.entity.Customer</class>
         <class>com.tutorial.entity.Category</class>
+        <class>com.tutorial.entity.Customer</class>
+        <class>com.tutorial.entity.Department</class>
+        <class>com.tutorial.entity.Image</class>
+        <class>com.tutorial.entity.Member</class>
+        <class>com.tutorial.entity.relationship.onetoone.Credential</class>
+        <class>com.tutorial.entity.relationship.onetoone.User</class>
+        <class>com.tutorial.entity.relationship.onetoone.Wallet</class>
+        <class>com.tutorial.entity.relationship.onetomany.Brand</class>
+        <class>com.tutorial.entity.relationship.onetomany.Product</class>
+        <class>com.tutorial.entity.relationship.inheritance.singletable.Employee</class>
+        <class>com.tutorial.entity.relationship.inheritance.singletable.Manager</class>
+        <class>com.tutorial.entity.relationship.inheritance.singletable.VicePresident</class>
+        <class>com.tutorial.entity.relationship.inheritance.jointable.PaymentCreditCard</class>
+        <class>com.tutorial.entity.relationship.inheritance.jointable.Payment</class>
+        <class>com.tutorial.entity.relationship.inheritance.jointable.PaymentGopay</class>
+        <class>com.tutorial.entity.relationship.inheritance.tableperclass.TransactionCredit</class>
+        <class>com.tutorial.entity.relationship.inheritance.tableperclass.Transaction</class>
+        <class>com.tutorial.entity.relationship.inheritance.tableperclass.TransactionDebit</class>
+        <class>com.tutorial.entity.relationship.inheritance.mappedsuperclass.AuditableEntity</class>
+
 
         <properties>
             <!-- connection DB-->
@@ -25,6 +44,12 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/belajar_spring_data_jpa"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="root"/>
+
+
+            <!-- Schema Generator fitur otomatis generate table-->
+            <!-- sangat cocok generator create table untuk testing dengan db yang testing juga-->
+            <!-- kalau di production tidak cocok generator seperti ini-->
+<!--            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>-->
 
             <!-- show generate sql-->
             <property name="hibernate.show_sql" value="true"/>

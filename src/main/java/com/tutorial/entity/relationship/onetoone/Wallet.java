@@ -14,7 +14,7 @@ public class Wallet {
 
     // Relasi One to One dengan menggunakan Foreign Key. dengan relasi melalui column yang di sematkan sebagai relasi
     // @OneToOne // menandakan relasi 1 ke 1 antara table
-    // @JoinColumn// relasi melalui Foreign Key (yang reference ke table relasi)
+    // @JoinColumn// akan membuat kolom id table wallets. relasi melalui Foreign Key user (yang reference ke table relasi)
     // method: name(dari Table A) referencedColumnName(referesi ke Table B)
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

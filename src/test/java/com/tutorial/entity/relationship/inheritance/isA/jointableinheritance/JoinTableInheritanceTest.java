@@ -1,4 +1,4 @@
-package com.tutorial.entity.relationship.inheritance.jointableinheritance;
+package com.tutorial.entity.relationship.inheritance.isA.jointableinheritance;
 
 import com.tutorial.entity.relationship.inheritance.jointable.Payment;
 import com.tutorial.entity.relationship.inheritance.jointable.PaymentCreditCard;

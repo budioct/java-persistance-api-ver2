@@ -1,6 +1,6 @@
 package com.tutorial.entity;
 
-import jakarta.persistence.Embedded;
+import com.tutorial.embeddedable.DepartmentId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

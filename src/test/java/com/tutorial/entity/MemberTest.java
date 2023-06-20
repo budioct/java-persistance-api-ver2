@@ -1,13 +1,19 @@
 package com.tutorial.entity;
 
+import com.tutorial.embeddedable.Name;
 import com.tutorial.utils.UtilEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 public class MemberTest {
@@ -24,40 +30,6 @@ public class MemberTest {
     void tearDown(){
         log.info("Off Entity Manager Factory");
         this.entityManagerFactory.close();
-    }
-
-    @Test
-    void testInsertEmbedded(){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        entityTransaction.begin();
-
-        Name name = new Name();
-        name.setTitle("Mrs");
-        name.setFirstName("febi");
-        name.setMiddleName("dwi");
-        name.setLastName("sulistiana");
-
-        Member member = new Member();
-        member.setEmail("febi@test.com");
-        member.setName(name);
-
-        entityManager.persist(member);
-
-        entityTransaction.commit();
-        entityManager.close();
-
-        /**
-         * result query:
-         * Hibernate:
-         *     insert
-         *     into
-         *         members
-         *         (email,first_name,last_name,middle_name,title)
-         *     values
-         *         (?,?,?,?,?)
-         */
-
     }
 
 

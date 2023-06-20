@@ -1,9 +1,11 @@
 package com.tutorial.entity.relationship.onetomany;
 
+import com.tutorial.entity.relationship.onetoone.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Entity
@@ -21,32 +23,23 @@ public class Product {
 
     // Relasi many to One dengan menggunakan Foreign Key. dengan relasi melalui column yang di sematkan sebagai relasi
     // @ManyToOne // menandakan relasi banyak ke 1 antara table
-    // @JoinColumn// relasi melalui Foreign Key (yang reference ke table relasi)
+    // @JoinColumn// akan membuat kolom foreign brand_id table products. relasi melalui Foreign Key (yang reference ke table relasi)
     // method: name(dari Table A) referencedColumnName(referesi ke Table B)
-    @ManyToOne
+    // method: fetch adalah bentuk pengambilan data table EAGER(sekaligus dengan table relasinya) / LAZY(betahap, tidak langsung sekaligus dengan table relasinya)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "brand_id",
             referencedColumnName = "id"
     )
     private Brand brand;
 
+    // Relasi Many to Many dengan menggunakan Table tambahan sebagai perantara TableA dan TableB
+    // method: mappedBy // nama dari pemetaan yang dibuat di table berlasi, harus sama dengan nama variable object referencenya!!!
+    @ManyToMany(mappedBy = "likes")
+    private Set<User> likeBy;
+
     public Product() {
 
-    }
-
-    public Product(String name, Long price, String description, Brand brand) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.brand = brand;
-    }
-
-    public Product(String id, String name, Long price, String description, Brand brand) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.brand = brand;
     }
 
     public String getId() {
@@ -59,6 +52,23 @@ public class Product {
 
     public String getName() {
         return name;
+    }
+
+    public Product(String name, Long price, String description, Brand brand, Set<User> likeBy) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.brand = brand;
+        this.likeBy = likeBy;
+    }
+
+    public Product(String id, String name, Long price, String description, Brand brand, Set<User> likeBy) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.brand = brand;
+        this.likeBy = likeBy;
     }
 
     public void setName(String name) {
@@ -87,5 +97,13 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public Set<User> getLikeBy() {
+        return likeBy;
+    }
+
+    public void setLikeBy(Set<User> likeBy) {
+        this.likeBy = likeBy;
     }
 }

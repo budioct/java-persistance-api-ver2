@@ -1,8 +1,8 @@
-package com.tutorial.entity.relationship.inheritance.singletableinheritance;
+package com.tutorial.entity.relationship.inheritance.isA.singletableinheritance;
 
-import com.tutorial.entity.relationship.inheritance.Employee;
-import com.tutorial.entity.relationship.inheritance.Manager;
-import com.tutorial.entity.relationship.inheritance.VicePresident;
+import com.tutorial.entity.relationship.inheritance.singletable.Employee;
+import com.tutorial.entity.relationship.inheritance.singletable.Manager;
+import com.tutorial.entity.relationship.inheritance.singletable.VicePresident;
 import com.tutorial.utils.UtilEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

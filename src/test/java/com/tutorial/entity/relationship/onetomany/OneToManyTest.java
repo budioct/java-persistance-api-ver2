@@ -14,7 +14,6 @@ import java.util.List;
 
 @Slf4j
 public class OneToManyTest {
-
     /**
      * One to Many Relationship
      * ● Untuk membuat Entity yang memiliki relasi One to Many dengan Entity lain, kita bisa menggunakan annotation OneToMany
@@ -28,6 +27,7 @@ public class OneToManyTest {
      */
 
     EntityManagerFactory entityManagerFactory;
+
 
     @BeforeEach
     void setUp() {
@@ -56,17 +56,17 @@ public class OneToManyTest {
 
         Product product1 = Product.builder()
                 .id("p3")
+                .brand(brand)
                 .name("Samsung Galaxy 3")
                 .price(1_000_000L)
-                .brand(brand)
                 .description("product p3 Samsung Galaxy 3")
                 .build();
 
         Product product2 = Product.builder()
                 .id("p4")
+                .brand(brand)
                 .name("Samsung Galaxy 4")
                 .price(2_000_000L)
-                .brand(brand)
                 .description("product p4 Samsung Galaxy 4")
                 .build();
 
@@ -148,7 +148,7 @@ public class OneToManyTest {
          *         p1_0.brand_id=?
          */
 
-    }
+}
 
 
 }

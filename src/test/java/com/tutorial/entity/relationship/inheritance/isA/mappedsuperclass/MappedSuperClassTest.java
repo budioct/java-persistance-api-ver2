@@ -1,4 +1,4 @@
-package com.tutorial.entity.relationship.inheritance.mappedsuperclass;
+package com.tutorial.entity.relationship.inheritance.isA.mappedsuperclass;
 
 import com.tutorial.entity.relationship.onetomany.Brand;
 import com.tutorial.utils.UtilEntityManagerFactory;

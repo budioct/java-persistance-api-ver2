@@ -1,4 +1,4 @@
-package com.tutorial.entity.relationship.inheritance.tableperclassinheritance;
+package com.tutorial.entity.relationship.inheritance.isA.tableperclassinheritance;
 
 import com.tutorial.entity.relationship.inheritance.tableperclass.Transaction;
 import com.tutorial.entity.relationship.inheritance.tableperclass.TransactionCredit;

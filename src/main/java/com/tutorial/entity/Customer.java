@@ -1,9 +1,7 @@
 package com.tutorial.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.tutorial.data.CustomerType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customers")
@@ -22,19 +20,46 @@ public class Customer {
      *
      * @GeneratedValue
      * memiliki fitur membuat Primary Key yang diisi secara otomatis
-     * // Generated Value Strategy --> untuk melakukan management Id, atau bahkan menggunakan UUID
+     * // Generated Value Strategy --> untuk melakukan management Id, atau bahkan menggunakan UUID (jika ingin menggunakan string)
+     *
+     * Basic Data Type
+     * Daftar Tipe Data
+     * ● Semua Number (Byte, Short, Integer, Long, Float, Double)
+     * ● Semua Big Number (BigInteger, BigDecimal)
+     * ● Boolean
+     * ● String & Character
+     *
+     * @Enumerated()
+     * cara menyimpan enum ke table java, enum jpa memiliki 2 strategy menyimpan bentuk Integer dan String, Sangat disarankan menggunakan strategy String,
+     * karea strategy Integer bisa berubah ketika terjadi penambahan Enum Value pada posisi yang acak
+     *
+     * @Transient
+     * ingin membuat attribute yang bukan kolom di table
+     * untuk menandai bahwa attribute tersebut bukan kolom di Table, sehingga akan di ignore oleh JPA
+     *
      *
      */
 
     @Id
-//    @Column(name = "id_customers")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private String id;
 
-//    @Column(name = "name_customers")
+    @Column(name = "name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private CustomerType type;
 
     @Column(name = "primary_email")
     private String primaryEmail;
+
+    private Boolean married;
+
+    private Byte age;
+
+    @Transient
+    private String fullName;
 
     /**
      * Class Entity wajib memiliki default constructor yang tidak memiliki parameter, hal ini agar JPA bisa
@@ -65,5 +90,37 @@ public class Customer {
 
     public void setPrimaryEmail(String primaryEmail) {
         this.primaryEmail = primaryEmail;
+    }
+
+    public Boolean getMarried() {
+        return married;
+    }
+
+    public void setMarried(Boolean married) {
+        this.married = married;
+    }
+
+    public Byte getAge() {
+        return age;
+    }
+
+    public void setAge(Byte age) {
+        this.age = age;
+    }
+
+    public CustomerType getType() {
+        return type;
+    }
+
+    public void setType(CustomerType type) {
+        this.type = type;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

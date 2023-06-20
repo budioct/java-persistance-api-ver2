@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 
 public class UtilEntityManagerFactory {
 
-    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ASEKBRO");
+    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ASEKBRO"); // static EntityManagerFactory createEntityManagerFactory(String persistenceUnitName) // datasource environment jpa hibernate
 
     public static EntityManagerFactory getEntityManagerFactory(){
 

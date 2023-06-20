@@ -1,5 +1,6 @@
 package com.tutorial.entity;
 
+import com.tutorial.embeddedable.DepartmentId;
 import com.tutorial.utils.UtilEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -28,38 +29,8 @@ public class DepartmentTest {
         this.entityManagerFactory.close();
     }
 
-    @Test
-    void testInsertEmbbeddeId2columnPrimaryKey(){
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        entityTransaction.begin();
 
-        DepartmentId departmentId = new DepartmentId();
-        departmentId.setCompanyId("sb");
-        departmentId.setDepartmentId("technologi");
-
-        Department department = new Department();
-        department.setId(departmentId);
-        department.setName("Teknologi");
-
-        entityManager.persist(department);
-
-        entityTransaction.commit();
-        entityManager.close();
-
-        /**
-         * result query:
-         * Hibernate:
-         *     insert
-         *     into
-         *         departments
-         *         (name,company_id,department_id)
-         *     values
-         *         (?,?,?)
-         */
-
-    }
 
 
 }

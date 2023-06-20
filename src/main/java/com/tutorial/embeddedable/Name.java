@@ -1,4 +1,4 @@
-package com.tutorial.entity;
+package com.tutorial.embeddedable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

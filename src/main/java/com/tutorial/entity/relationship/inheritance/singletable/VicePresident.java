@@ -1,4 +1,4 @@
-package com.tutorial.entity.relationship.inheritance;
+package com.tutorial.entity.relationship.inheritance.singletable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;

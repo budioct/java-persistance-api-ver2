@@ -1,11 +1,10 @@
-package com.tutorial.entity;
+package com.tutorial.embeddedable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class DepartmentId implements Serializable {
@@ -46,4 +45,18 @@ public class DepartmentId implements Serializable {
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DepartmentId that = (DepartmentId) o;
+        return Objects.equals(companyId, that.companyId) && Objects.equals(departmentId, that.departmentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(companyId, departmentId);
+    }
+
 }

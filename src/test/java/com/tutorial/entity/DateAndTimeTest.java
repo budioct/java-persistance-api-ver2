@@ -66,7 +66,7 @@ public class DateAndTimeTest {
         Category category = new Category();
         category.setName("Food");
         category.setCreatedAt(Calendar.getInstance()); // Temporal
-        category.setUpdateAt(LocalDateTime.now()); // java.time
+        category.setUpdatedAt(LocalDateTime.now()); // java.time
 
         entityManager.persist(category);
 
@@ -84,6 +84,9 @@ public class DateAndTimeTest {
          *         (create_at,description,name,update_at)
          *     values
          *         (?,?,?,?)
+         *
+         * result record table
+         * 5,Contoh Event Listener,,,2023-05-28 16:50:37
          */
 
     }

@@ -76,14 +76,14 @@ public class CRUDTest {
     @Test
     void findEntityTest(){
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ASEKBRO");
+        // EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ASEKBRO");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
 
-        Customer customer = entityManager.find(Customer.class, "1"); // <T> T find(Class<T> var1, Object var2) // Untuk mendapatkan entity berdasarkan id
-        Assertions.assertEquals("1", customer.getId());
-        Assertions.assertEquals("jamal", customer.getName());
+        Customer customer = entityManager.find(Customer.class, "8"); // <T> T find(Class<T> var1, Object var2) // Untuk mendapatkan entity berdasarkan id
+        Assertions.assertEquals("8", customer.getId());
+        Assertions.assertEquals("sabeni", customer.getName());
 //        Assertions.assertEquals("jamal@gmail.com", customer.getPrimaryEmail());
 
         entityTransaction.commit();

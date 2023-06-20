@@ -1,10 +1,14 @@
 package com.tutorial.entitymanagerfactory;
 
+import com.tutorial.utils.UtilEntityManagerFactory;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class EntityManagerFactoryTest {
 
     @Test
@@ -24,6 +28,21 @@ public class EntityManagerFactoryTest {
 
         entityManagerFactory.close(); // void close() // Tutup pabrik, lepaskan semua sumber daya yang dimilikinya.
 
+    }
+
+    EntityManagerFactory entityManagerFactory;
+
+    @BeforeEach
+    void setUp(){
+        log.info("ini entity manager factory");
+        this.entityManagerFactory = UtilEntityManagerFactory.getEntityManagerFactory();
+    }
+
+    @Test
+    void testbro(){
+
+        // test entity manager
+        entityManagerFactory.createEntityManager().getTransaction().begin();
     }
 
 }

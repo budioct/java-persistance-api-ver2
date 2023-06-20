@@ -57,12 +57,14 @@ public class ManyToManyTest {
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
 
-        User user = entityManager.find(User.class, "budhi");
-        user.setLikes(new HashSet<>());
-        user.getLikes().add(entityManager.find(Product.class, "p1"));
+        User user = entityManager.find(User.class, "budhi"); // get id
+        user.setLikes(new HashSet<>()); // instance
+        user.getLikes().add(entityManager.find(Product.class, "p1")); // add data by id
         user.getLikes().add(entityManager.find(Product.class, "p2"));
+        user.getLikes().add(entityManager.find(Product.class, "p3"));
+        user.getLikes().add(entityManager.find(Product.class, "p4"));
 
-        entityManager.merge(user);
+        entityManager.merge(user); // update
 
         entityTransaction.commit();
         entityManager.close();
@@ -143,4 +145,83 @@ public class ManyToManyTest {
          */
 
     }
+
+    @Test
+    void testUpdateManyToManyRelationship(){
+
+        // contoh menghapus many to many:  Find and update Product (delete collection)
+
+        /**
+         * NOTE:
+         * ketika table relasi di delete dia tidak akan menghapus semuanya dulu (jadi ini amanya jika menggunakan relasi entity JPA)
+         * 1 to 1, M  to M,
+         * berbeda jika menggunakan Collection dia di hapus semua dulu baru di insert ulang semunya
+         */
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        User user = entityManager.find(User.class, "budhi"); // get id
+//        user.getLikes().forEach(product -> System.out.println(product.getName())); // print semua nama product
+
+        Product product = null;
+        for (Product item : user.getLikes()){
+            product = item;
+            break;
+        }
+
+        user.getLikes().remove(product); // hanya menghapus 1 product id di table relasi many to many antara table users dan product
+        entityManager.merge(user);
+
+        entityTransaction.commit();
+        entityManager.close();
+
+        /**
+         * result query:
+         * Hibernate:
+         *     select
+         *         u1_0.id,
+         *         c1_0.id,
+         *         c1_0.email,
+         *         c1_0.password,
+         *         u1_0.name,
+         *         w1_0.id,
+         *         w1_0.balance
+         *     from
+         *         users u1_0
+         *     left join
+         *         credentials c1_0
+         *             on c1_0.id=u1_0.id
+         *     left join
+         *         wallets w1_0
+         *             on u1_0.id=w1_0.user_id
+         *     where
+         *         u1_0.id=?
+         * Hibernate:
+         *     select
+         *         l1_0.user_id,
+         *         l1_1.id,
+         *         l1_1.brand_id,
+         *         l1_1.description,
+         *         l1_1.name,
+         *         l1_1.price
+         *     from
+         *         users_like_products l1_0
+         *     join
+         *         products l1_1
+         *             on l1_1.id=l1_0.product_id
+         *     where
+         *         l1_0.user_id=?
+         * Hibernate:
+         *     delete
+         *     from
+         *         users_like_products
+         *     where
+         *         user_id=?
+         *         and product_id=?
+         */
+
+    }
+
 }

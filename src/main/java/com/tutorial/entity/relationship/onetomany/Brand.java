@@ -1,9 +1,7 @@
 package com.tutorial.entity.relationship.onetomany;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.tutorial.entity.relationship.inheritance.mappedsuperclass.AuditableEntity;
+import jakarta.persistence.*;
 import lombok.Builder;
 
 import java.util.List;
@@ -11,7 +9,15 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "brands")
-public class Brand {
+// set named query, dengan name sebagai alias query. untuk mengakses nya tinggal panggil nama aliasnya
+@NamedQueries({
+        @NamedQuery(name = "Brand.findAll", query = "select b from Brand b"),
+        @NamedQuery(name = "Brand.findAllByName", query = "select b from Brand b where b.name = :name"),
+})
+@NamedNativeQueries(
+        @NamedNativeQuery(name = "Brand.native.findAll", query = "select * from brands", resultClass = Brand.class)
+)
+public class Brand extends AuditableEntity<String> {
 
     @Id
     private String id;
@@ -20,26 +26,32 @@ public class Brand {
 
     private String description;
 
-    // Relasi One to many dengan menggunakan Primary Key. di table tidak perlu ada FK di salah satu table relasi
+    // Relasi One to many dengan menggunakan Foreign Key. table yang beralis akan dibuat kolom tambahan untuk relasi antar table
     // method: mappedBy // nama dari pemetaan yang dibuat di table berlasi, harus sama dengan nama variable object referencenya!!!
     @OneToMany(mappedBy = "brand")
     private List<Product> products;
+
+    // Locking jenis Optimistic
+    @Version
+    private Long version;
 
     public Brand() {
 
     }
 
-    public Brand(String name, String descriptions, List<Product> products) {
+    public Brand(String name, String description, List<Product> products, Long version) {
         this.name = name;
-        this.description = descriptions;
+        this.description = description;
         this.products = products;
+        this.version = version;
     }
 
-    public Brand(String id, String name, String descriptions, List<Product> products) {
+    public Brand(String id, String name, String description, List<Product> products, Long version) {
         this.id = id;
         this.name = name;
-        this.description = descriptions;
+        this.description = description;
         this.products = products;
+        this.version = version;
     }
 
     public String getId() {
@@ -73,4 +85,21 @@ public class Brand {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
 }
